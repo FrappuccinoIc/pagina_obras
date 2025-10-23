@@ -1,10 +1,13 @@
 from django.contrib import admin
 from django.urls import path
-from catalogo import views as views_catalogo
 from django.conf import settings
 
+from core import views as views_core
+from catalogo import views as views_catalogo
+
 urlpatterns = [
-    path('obras', views_catalogo.catalogo, name = "catalogo"),
+    path('', views_core.home, name = 'home'),
+    path('obras/', views_catalogo.catalogo, name = "catalogo"),
     path('obras/<int:obra_id>', views_catalogo.detalles, name = "obra"),
     path('admin/', admin.site.urls),
 ]
