@@ -12,25 +12,23 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{% static 'catalogo/style/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'core/style/styles.css' %}">
 </head>
 <body class="text-center">
 
-    <header class="banner">
-
-    </header>
-
-    <nav class="navbar navbar-expand-md navbar-info bg-info">
+    <nav class="navbar navbar-expand-md navbar-black bg-black">
         <div class="container">
             <div class="row">
                 <div class="navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-1 mb-md-0 align-items-center">
-                        <li class="nav-item fs-4"><img class="logo me-3" src="{% static 'catalogo/imagenes/logo.png' %}" alt="logo"></li>
-                        <li class="nav-item"><p class="navbar-brand me-5 my-0 fs-3 oswald">Fans del Prog</p></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4" href="/">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4" href="/obras">Obras</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4" href="/info">Preguntas Frecuentes</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4" href="/pedidos">Más Albumes</a></li>
+                    <ul class="navbar-nav me-auto mb-1 mb-md-0 align-items-center">
+                        <li class="nav-item fs-4"><img class="logo me-3 rounded" src="{% static 'core/imagenes/logo.png' %}" alt="logo"></li>
+                        <li class="nav-item"><p class="navbar-brand me-5 my-0 fs-3 oswald text-light">{{ nombre_pagina }}</p></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/lienzo">Obras Lienzo</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/impresiones">Obras a Impresión</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/info">Preguntas Frecuentes</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/pedidos">Más Albumes</a></li>
                     </ul>
                 </div>
             </div>
@@ -48,12 +46,12 @@
     </main>
     
     <footer class="mt-4">
-        <nav class="navbar navbar-expand-md navbar-info banner footer">
+        <nav class="navbar navbar-expand-md banner footer bg-black">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="navbar-collapse">
-                        <img class="img-fluid col-1" width="80px" src="{% static 'core/imagenes/logo.png' %}" alt="github logo">
-                        <a class="navbar-brand fs-2 col-4 oswald" href="https://github.com/FrappuccinoIc/pagina_obras">Github</a>
+                        <img class="img-fluid col-1" src="{% static 'core/imagenes/instagram.png' %}" alt="github logo">
+                        <a class="navbar-brand fs-2 col-4 oswald  text-light" href="{{ LINK_INSTAGRAM }}">Instagram</a>
                     </div>
                 </div>
             </div>

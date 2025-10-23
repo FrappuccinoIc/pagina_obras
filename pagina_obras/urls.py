@@ -7,7 +7,8 @@ from catalogo import views as views_catalogo
 
 urlpatterns = [
     path('', views_core.home, name = 'home'),
-    path('obras/', views_catalogo.catalogo, name = "catalogo"),
+    path('lienzo/', views_catalogo.catalogo_lienzo, name = "lienzo"),
+    path('impresiones/', views_catalogo.catalogo_impresiones, name = "impresiones"),
     path('obras/<int:obra_id>', views_catalogo.detalles, name = "obra"),
     path('admin/', admin.site.urls),
 ]
