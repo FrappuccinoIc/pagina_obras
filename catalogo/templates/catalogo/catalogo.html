@@ -12,12 +12,12 @@
     {% endif %}
 
     <div class="card mx-1" style="width: 18rem;">
-        <a href="obras/{{ o.id }}"><img class="card-img-top" src="{{ o.imagen.url }}" alt="obra"></a>
+        <a href="{% url 'obra' o.id %}"><img class="card-img-top" src="{{ o.imagen.url }}" alt="obra"></a>
         <div class="card-body">
             <h4 class="card-title text-start">{{ o.titulo }}</h4>
             <h5 class="card-title text-start">{{ o.precio }}$</h5>
             <h5 class="card-title text-start text-muted">Stock: {{ o.stock }}</h5>
-            <a href="#" class="btn btn-primary mt-2">Ver producto</a>
+            <a href="{% url 'obra' o.id %}" class="btn btn-primary mt-2">Ver producto</a>
         </div>
     </div>
     {% if forloop.counter|divisibleby:4 or forloop.last %}
