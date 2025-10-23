@@ -1,3 +1,10 @@
 from django.contrib import admin
+from .models import Etiqueta, Obra
 
-# Register your models here.
+class EtiquetaAdmin(admin.ModelAdmin):
+    readonly_fields=('created','updated')
+class ObraAdmin(admin.ModelAdmin):
+    readonly_fields=('created','updated')
+
+admin.site.register(Etiqueta,EtiquetaAdmin)
+admin.site.register(Obra,ObraAdmin)
