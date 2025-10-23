@@ -2,5 +2,33 @@
 
 {% load static %}
 {% block contenido %}
-<h2>HI HI HI</h2>
+<section class="container contenido">
+    <article class="mb-5">
+        <h2>HOLA</h2>
+        <h3>Soy Cristián Erré</h3>
+        <h3>Te presento mi catálogo de cuadros para embellecer tu hermoso hogar.</h3>
+    </article>
+
+    <article class="mb-5 d-flex-column row justify-content-start text-start">
+        <div class="col-10">
+            <h2 class="ms-4">LIENZOS</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, quae iure rerum ut quibusdam odio aliquid laboriosam voluptatibus. Esse maiores eius neque amet fugit pariatur repellat harum ducimus tempora expedita!</p>
+            <div>
+                <img class="img-thumbnail p-2 m-2" src="{% static 'core/imagenes/lienzo1.png' %}" alt="img-lienzo">
+                <img class="img-thumbnail p-2 m-2" src="{% static 'core/imagenes/lienzo2.png' %}" alt="img-lienzo">
+            </div>
+        </div>
+    </article>
+
+    <article class="mb-5 d-flex-column row justify-content-end text-end">
+        <div class="col-10">
+            <h2 class="ms-4">IMPRESIONES A PAPEL</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis doloribus cupiditate totam tempore quam quis libero pariatur placeat eum aut officiis doloremque expedita earum unde, modi culpa? Aspernatur, nam eos!</p>
+            <div>
+                <img class="img-thumbnail p-2 m-2" src="{% static 'core/imagenes/impresion1.png' %}" alt="img-impresion">
+                <img class="img-thumbnail p-2 m-2" src="{% static 'core/imagenes/impresion2.png' %}" alt="img-impresion">
+            </div>
+        </div>
+    </article>
+</section>
 {% endblock %}
