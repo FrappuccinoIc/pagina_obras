@@ -9,6 +9,8 @@ urlpatterns = [
     path('', views_core.home, name = 'home'),
     path('lienzo/', views_catalogo.catalogo_lienzo, name = "lienzo"),
     path('impresiones/', views_catalogo.catalogo_impresiones, name = "impresiones"),
+    path('info/', views_core.info, name = "info"),
+    path('pedidos/', views_core.pedidos, name = "pedidos"),
     path('obras/<int:obra_id>', views_catalogo.detalles, name = "obra"),
     path('admin/', admin.site.urls),
 ]
