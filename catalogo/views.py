@@ -42,6 +42,18 @@ def catalogo_impresiones(req):
         "page_range": page_range, 
     })
 
+def catalogo_murales(req):
+    medio = "Mural"
+    obj_return = catalogo_paginacion(req, medio)
+    page_obj = obj_return[0]
+    page_range = obj_return[1]
+
+    return render(req, 'catalogo/catalogo.html', {
+        "medio": medio,
+        "page_obj": page_obj,
+        "page_range": page_range, 
+    })
+
 def detalles(req, obra_id):
     obra = Obra.objects.get(id = obra_id)
     return render(req, 'catalogo/detalles.html', {"obra": obra})

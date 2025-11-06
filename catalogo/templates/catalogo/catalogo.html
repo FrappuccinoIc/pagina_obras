@@ -16,7 +16,7 @@
         <div class="card-body">
             <h4 class="card-title text-start">{{ o.titulo }}</h4>
             <h5 class="card-title text-start">{{ o.precio }}$</h5>
-            <h5 class="card-title text-start text-muted">Stock: {{ o.stock }}</h5>
+            <h5 class="card-title text-start text-muted">Estado: {{ o.estado }}</h5>
             <a href="{% url 'obra' o.id %}" class="btn btn-primary mt-2">Ver producto</a>
         </div>
     </div>

@@ -5,6 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Etiqueta(models.Model):
     nombre = models.CharField(max_length = 15, verbose_name = "Nombre")
+    descripcion = models.CharField(max_length = 70, default = "", verbose_name = "Descripción")
 
     created = models.DateTimeField(auto_now = True, verbose_name = "Fecha de creación")
     updated = models.DateTimeField(auto_now_add = True, verbose_name = "Fecha de edición")
@@ -17,13 +18,14 @@ class Etiqueta(models.Model):
 
 obras_medios = [
     ("Lienzo", "Lienzo"),
+    ("Mural", "Mural"),
     ("Impresiones", "Impresiones")
 ]
 
 obras_estados = [
-    ("Normal", "Normal"),
-    ("En Tendencia", "En Tendencia"),
-    ("Destacado", "Destacado")
+    ("Disponible", "Disponible"),
+    ("Agotado", "Agotado"),
+    ("Reservado", "Reservado")
 ]
 class Obra(models.Model):
     titulo = models.CharField(max_length = 50, verbose_name = "Titulo")
@@ -31,7 +33,6 @@ class Obra(models.Model):
     medio = models.CharField(max_length = 50, default = "Lienzo", choices = obras_medios, verbose_name = "Medio de Obra")
     etiquetas = models.ManyToManyField(Etiqueta, verbose_name = "etiquetas")
     precio = models.IntegerField(validators=[MinValueValidator(0)], verbose_name = "Precio")
-    stock = models.IntegerField(default = 0, validators=[MinValueValidator(0)], verbose_name = "Stock")
     descripcion = models.TextField(null = True, blank = True, verbose_name = "Descripción")
     estado = models.CharField(max_length = 50, default = "Normal", choices = obras_estados, verbose_name = "Estado del producto")
 
