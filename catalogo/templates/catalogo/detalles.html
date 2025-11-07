@@ -2,7 +2,28 @@
 
 {% load static %}
 {% block contenido %}
-<h2>HI HI HI</h2>
-<p>{{obra.id}}</p>
-<p>{{obra.titulo}}</p>
+
+<section class="contenido container">
+    
+    <div class="row mb-3 justify-content-around">
+        <img class="img-fluid col-4" src="{{ obra.imagen.url }}" alt="obra">
+        <div class="col-7">
+            <h2>{{ obra.titulo }} <span class="text-muted fs-4">ID: {{ obra.id }}</span></h2>
+            <h3 class="text-primary">Medio: {{ obra.medio }}</h3>
+            <h5 class="text-muted">
+                Etiquetas: 
+                    {% for e in obra.etiquetas.all %}
+                        {{ e.nombre }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+            </h5>
+
+            <hr>
+
+            <h4 class="fs-5 mb-4">{{ obra.descripcion }}</h4>
+            <h3 class="text-success">{{ obra.estado }} | Precio: ${{ obra.precio }}</h3>
+        </div>
+    </div>
+    
+
+</section>
 {% endblock %}
