@@ -8,6 +8,3 @@ def info(req):
 
 def pedidos(req):
     return render(req, "core/pedidos.html")
-
-def carrito(req):
-    return render(req, "core/carrito.html")
