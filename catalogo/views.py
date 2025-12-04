@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from .models import Obra
+from .models import Obra, Publicacion
 from django.core.paginator import Paginator
 
 def catalogo_paginacion(req, medio):
-    obra = Obra.objects.filter(medio = medio).order_by("id")
-    pag = Paginator(obra, 12)
+    obras = Obra.objects.filter(medio = medio).order_by("id")
+    pag = Paginator(obras, 12)
 
     page_number = req.GET.get('page') # Se pasa la url que se quiere conseguir, en este caso: ?page=n
     page_obj = pag.get_page(page_number)
@@ -56,4 +56,5 @@ def catalogo_murales(req):
 
 def detalles(req, obra_id):
     obra = Obra.objects.get(id = obra_id)
-    return render(req, 'catalogo/detalles.html', {"obra": obra})
+    publicacion = Publicacion.objects.get(obra__id = obra_id)
+    return render(req, 'catalogo/detalles.html', {"obra": obra, "publicacion": publicacion})
