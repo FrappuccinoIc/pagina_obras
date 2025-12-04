@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from .models import Obra, Publicacion
 from django.core.paginator import Paginator
 
-def catalogo_paginacion(req, medio):
+def catalogo_paginacion(req, medio, url):
     obras = Obra.objects.filter(medio = medio).order_by("id")
     pag = Paginator(obras, 12)
 
@@ -16,11 +17,19 @@ def catalogo_paginacion(req, medio):
     end_index = min(index + 3, max_index)
     page_range = pag.page_range[start_index:end_index]
 
+    if req.method == 'POST':
+        obra = req.POST.get('obra')
+
+        product_list = req.session.get("carrito", [])
+        if obra not in product_list:
+            product_list.append(obra)
+            req.session["carrito"] = product_list
+        print(req.session["carrito"])
     return [page_obj, page_range]
 
 def catalogo_lienzo(req):
     medio = "Lienzo"
-    obj_return = catalogo_paginacion(req, medio)
+    obj_return = catalogo_paginacion(req, medio, "lienzo")
     page_obj = obj_return[0]
     page_range = obj_return[1]
 
@@ -32,7 +41,7 @@ def catalogo_lienzo(req):
 
 def catalogo_impresiones(req):
     medio = "Impresiones"
-    obj_return = catalogo_paginacion(req, medio)
+    obj_return = catalogo_paginacion(req, medio, "impresiones")
     page_obj = obj_return[0]
     page_range = obj_return[1]
 
@@ -44,7 +53,7 @@ def catalogo_impresiones(req):
 
 def catalogo_murales(req):
     medio = "Mural"
-    obj_return = catalogo_paginacion(req, medio)
+    obj_return = catalogo_paginacion(req, medio, "murales")
     page_obj = obj_return[0]
     page_range = obj_return[1]
 

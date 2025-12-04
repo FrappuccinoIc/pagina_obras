@@ -18,7 +18,13 @@
             <h5 class="card-title text-start">{{ o.precio }}$</h5>
             <h5 class="card-title text-start text-muted">Estado: {{ o.estado }}</h5>
             <a href="{% url 'obra' o.id %}" class="btn btn-primary mt-2">Ver producto</a>
-            <button class="btn btn-primary mt-2" onclick="">Añadir a Carrito</button>
+            {% if user.is_authenticated %}
+            <form method="POST" >
+                {% csrf_token %}
+                <input type="text" name="obra" value="{{ o.id }}" class="d-none">
+                <input type="submit" class="btn btn-primary mt-2" value="Añadir a Carrito" {% if o.estado != "Disponible" %} disabled {% endif %}>
+            </form>
+            {% endif %}
         </div>
     </div>
     {% if forloop.counter|divisibleby:4 or forloop.last %}
