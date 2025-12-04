@@ -3,6 +3,7 @@ from django.urls import path
 from django.conf import settings
 
 from core import views as views_core
+from checkout import views as views_checkout
 from catalogo import views as views_catalogo
 
 urlpatterns = [
@@ -12,7 +13,7 @@ urlpatterns = [
     path('murales/', views_catalogo.catalogo_murales, name = "murales"),
     path('info/', views_core.info, name = "info"),
     path('pedidos/', views_core.pedidos, name = "pedidos"),
-    path('carrito/', views_core.carrito, name = "carrito"),
+    path('carrito/', views_checkout.carrito, name = "carrito"),
     path('obras/<int:obra_id>', views_catalogo.detalles, name = "obra"),
     path('admin/', admin.site.urls),
 ]
