@@ -25,9 +25,9 @@
                         <li class="nav-item fs-4"><img class="logo me-3 rounded" src="{% static 'catalogo/imagenes/logo.jpg' %}" alt="logo"></li>
                         <li class="nav-item"><p class="navbar-brand me-5 my-0 fs-3 oswald text-light">{{ nombre_pagina }}</p></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/lienzo">Obras Lienzo</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/murales">Murales</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/impresiones">Obras a Impresión</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/catalogo/lienzo">Obras Lienzo</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/catalogo/murales">Murales</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/catalogo/impresiones">Obras a Impresión</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/info">Sobre mí</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/pedidos">Pedidos</a></li>
                         {% if user.is_authenticated %}

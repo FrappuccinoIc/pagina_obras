@@ -2,15 +2,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 
-from core import views as views_core
+from core import views
 
 urlpatterns = [
-    path('', views_core.home, name = 'home'),
-    path('catalogo', include("catalogo.urls")),
-    path('carrito', include("checkout.urls")),
+    path('', views.home, name = 'home'),
+    path('catalogo/', include("catalogo.urls")),
+    path('carrito/', include("checkout.urls")),
     path('', include("usuarios.urls")),
-    path('info/', views_core.info, name = "info"),
-    path('pedidos/', views_core.pedidos, name = "pedidos"),
+    path('info/', views.info, name = "info"),
+    path('pedidos/', views.pedidos, name = "pedidos"),
     path('admin/', admin.site.urls),
 ]
 
