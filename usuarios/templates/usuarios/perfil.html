@@ -14,7 +14,6 @@
         <h3 class="col-6">Nombre: {{ usuario.nombre }} {{ usuario.apellidos }}</h3>
     </div>
     <h4 class="ps-4 p-3" >direccion: {{ usuario.direccion }}</h4>
-    <h4 class="ps-4 p-3" >permisos: {{ request.user.get_all_permissions|join:", " }}</h4>
 
     <h2><a href="./eliminar/" class="text-danger">Eliminar usuario</a></h2>
 </div>

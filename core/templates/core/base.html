@@ -30,7 +30,14 @@
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/impresiones">Obras a Impresión</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/info">Sobre mí</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/pedidos">Pedidos</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/checkout">🛒</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/perfil">Perfil</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/?salir=si">Cerrar sesión</a></li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/usuarios/registrar">Registrar</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/admin/login">Login</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/carrito">🛒</a></li>
 
                     </ul>
                 </div>

@@ -3,4 +3,7 @@ from catalogo.models import Obra
 
 def carrito(req):
     obras = Obra.objects.all()
-    return render(req, "checkout/carrito.html", {"obras": obras})
+    monto_total = 0
+    for obra in obras:
+        monto_total += obra.precio
+    return render(req, "checkout/carrito.html", {"obras": obras, "monto_total": monto_total})
