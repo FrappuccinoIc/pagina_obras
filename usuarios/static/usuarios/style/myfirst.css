@@ -1,0 +1,30 @@
+body {
+  background-color: lightblue;
+}
+
+.oswald {
+  font-family: "Oswald";
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.logo {
+    width: 100px;
+}
+
+.banner {
+  height: 120px;
+  overflow: hidden;
+  background-image: url('../imagenes/249903@2x.webp');
+  background-size: cover;
+  background-position: 107% 65%;
+}
+
+.footer {
+  background-position: 50% -20%;
+}
+
+article .container {
+  height: 200px;
+}

@@ -1,0 +1,35 @@
+{% extends 'usuarios/base.html' %}
+
+{% block bloque_definicion %}
+<h2>Registrar usuario</h2>
+{% endblock %}
+
+{% block bloque_contenido %}
+
+{% load crispy_forms_tags %}
+
+<div class="container">
+    <div class="container row text-start mb-4">
+        <h4><a href="/registrar">Registrar usuario</a></h4>
+    </div>
+
+    {% if form.errors %}
+        {{ form.errors }}
+    {% endif %}
+
+    {% if 'pass' in request.GET %}
+        <h3 class="p-3 mb-4 bg-warning rounded-3 shadow-sm">Contraseña no coincide.</h3>
+    {% elif 'fail' in request.GET %}
+        <h3 class="p-3 mb-4 bg-warning rounded-3 shadow-sm">Ese usuario ya existe.</h3>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-primary" type="submit">Registrar</button>
+    </form>
+</div>
+
+
+
+{% endblock %}

@@ -1,18 +1,16 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 
 from core import views as views_core
-from catalogo import views as views_catalogo
 
 urlpatterns = [
     path('', views_core.home, name = 'home'),
-    path('lienzo/', views_catalogo.catalogo_lienzo, name = "lienzo"),
-    path('impresiones/', views_catalogo.catalogo_impresiones, name = "impresiones"),
-    path('murales/', views_catalogo.catalogo_murales, name = "murales"),
+    path('catalogo', include("catalogo.urls")),
+    path('checkout', include("checkout.urls")),
+    path('', include("usuarios.urls")),
     path('info/', views_core.info, name = "info"),
     path('pedidos/', views_core.pedidos, name = "pedidos"),
-    path('obras/<int:obra_id>', views_catalogo.detalles, name = "obra"),
     path('admin/', admin.site.urls),
 ]
 

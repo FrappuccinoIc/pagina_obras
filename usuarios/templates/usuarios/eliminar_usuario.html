@@ -1,0 +1,31 @@
+{% extends 'usuarios/base.html' %}
+{% block bloque_definicion %}
+
+
+{% if 'ok' in request.GET %}
+    <h3>Usuario eliminado exitosamente.</h3>
+{% else %}
+    <h2>Confirmación eliminar usuario</h2>
+{% endif %}
+
+
+{% endblock %}
+{% block bloque_contenido %}
+
+<div class="container">
+    {% if 'ok' in request.GET %}
+        <button class="btn btn-primary"><a class="fs-4 text-light" href="/perfil/{{ usuario.id }}">Volver atrás</a></button>
+    {% else %}
+    <h2 class="fs-3 mb-4">Desea eliminar usuario "{{ usuario.nombre }}"?</h2>
+    
+    <form action="{% url 'eliminar_usuario' usuario.id %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-primary"><a class="fs-4 text-light" href="/perfil/{{ usuario.id }}">Volver atrás</a></button>
+        <button class="btn btn-danger fs-4" type="submit">Eliminar usuario</button>
+    </form>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}
