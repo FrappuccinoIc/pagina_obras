@@ -12,6 +12,7 @@ urlpatterns = [
     path('murales/', views_catalogo.catalogo_murales, name = "murales"),
     path('info/', views_core.info, name = "info"),
     path('pedidos/', views_core.pedidos, name = "pedidos"),
+    path('carrito/', views_core.carrito, name = "carrito"),
     path('obras/<int:obra_id>', views_catalogo.detalles, name = "obra"),
     path('admin/', admin.site.urls),
 ]
