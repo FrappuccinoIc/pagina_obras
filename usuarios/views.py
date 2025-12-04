@@ -6,15 +6,16 @@ from .models import Usuario
 from .forms import UserForm
 
 def conseguir_crear_grupo(grupo, perm_strings):
-    group = Group.objects.get_or_create(name=grupo) # consigueme un grupo que exista con este nombre. Si no existe, crealo, y dime con un booleano si justo se creo
+    group, created = Group.objects.get_or_create(name=grupo) # consigueme un grupo que exista con este nombre. Si no existe, crealo, y dime con un booleano si justo se creo
 
-    for perm_string in perm_strings:
-        app_label, codename = perm_string.split('.')
-        perm = Permission.objects.get(
-            content_type__app_label = app_label,
-            codename = codename
-        )
-        group.permissions.add(perm)
+    if created:
+        for perm_string in perm_strings:
+            app_label, codename = perm_string.split('.')
+            perm = Permission.objects.get(
+                content_type__app_label = app_label,
+                codename = codename
+            )
+            group.permissions.add(perm)
 
     return group
 
@@ -55,11 +56,15 @@ def registrar(req, staff, grupo, grupo_perms, ruta_html):
     return render(req, ruta_html, { 'form': form })
 
 def registrar_usuario(req):
-    grupo_perms = {}
+    grupo_perms = {
+        "catalogo.view_obra, checkout.add_boletadecompra, catalogo.view_publicacion, catalogo.view_etiqueta"
+    }
     return registrar(req, False, "Usuarios", grupo_perms, 'usuarios/registrar.html')
 
 def registrar_admin(req):
-    grupo_perms = {}
+    grupo_perms = {
+        "catalogo.view_publicacion, catalogo.delete_obra, catalogo.view_etiqueta, usuarios.view_usuario, contenttypes.view_contenttype, usuarios.add_usuario, catalogo.add_publicacion, contenttypes.delete_contenttype, checkout.delete_boletadecompra, usuarios.delete_usuario, catalogo.delete_etiqueta, auth.view_user, catalogo.change_publicacion, checkout.change_boletadecompra, auth.delete_user, catalogo.change_etiqueta, auth.view_permission, catalogo.delete_publicacion, catalogo.change_obra, contenttypes.change_contenttype, catalogo.add_etiqueta, auth.view_group, auth.add_user, usuarios.change_usuario, checkout.view_boletadecompra, auth.change_user, sessions.view_session, catalogo.view_obra, admin.view_logentry, contenttypes.add_contenttype, catalogo.add_obra"
+    }
     return registrar(req, True, "Administradores", grupo_perms, 'usuarios/registrar_admin.html')
 
 """ def registrar_admin(req):
@@ -103,8 +108,7 @@ def registrar_admin(req):
 @login_required
 def perfil(req):
     usuario = Usuario.objects.get(cuenta__id = req.user.id)
-    group_permissions = Permission.objects.filter(group__user=req.user)
-    return render(req, "usuarios/perfil.html", {"usuario": usuario, "group_permissions": group_permissions})
+    return render(req, "usuarios/perfil.html", {"usuario": usuario})
 
 @login_required
 def eliminar_usuario(req):

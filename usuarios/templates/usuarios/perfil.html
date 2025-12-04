@@ -1,8 +1,5 @@
 {% extends 'usuarios/base.html' %}
-{% block bloque_definicion %}
-<h2>Perfil de usuario</h2>
-{% endblock %}
-{% block bloque_contenido %}
+{% block contenido %}
 
 <div class="container">
     <div class="container row text-start mb-4">
@@ -17,9 +14,9 @@
         <h3 class="col-6">Nombre: {{ usuario.nombre }} {{ usuario.apellidos }}</h3>
     </div>
     <h4 class="ps-4 p-3" >direccion: {{ usuario.direccion }}</h4>
-    <h4 class="ps-4 p-3" >permisos: {{ group_permissions }}</h4>
+    <h4 class="ps-4 p-3" >permisos: {{ request.user.get_all_permissions|join:", " }}</h4>
 
-    <h2><a href="./eliminar/{{ usuario.id }}" class="text-danger">Eliminar usuario</a></h2>
+    <h2><a href="./eliminar/" class="text-danger">Eliminar usuario</a></h2>
 </div>
 
 
