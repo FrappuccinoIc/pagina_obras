@@ -16,7 +16,6 @@ body {
 .banner {
   height: 120px;
   overflow: hidden;
-  background-image: url('../imagenes/249903@2x.webp');
   background-size: cover;
   background-position: 107% 65%;
 }

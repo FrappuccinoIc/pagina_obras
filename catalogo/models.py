@@ -33,14 +33,30 @@ class Obra(models.Model):
     medio = models.CharField(max_length = 50, default = "Lienzo", choices = obras_medios, verbose_name = "Medio de Obra")
     etiquetas = models.ManyToManyField(Etiqueta, verbose_name = "etiquetas")
     precio = models.IntegerField(validators=[MinValueValidator(0)], verbose_name = "Precio")
-    descripcion = models.TextField(null = True, blank = True, verbose_name = "Descripción")
     estado = models.CharField(max_length = 50, default = "Normal", choices = obras_estados, verbose_name = "Estado del producto")
 
-    created = models.DateTimeField(auto_now = True, verbose_name = "Fecha de publicación")
-    updated = models.DateTimeField(auto_now_add = True, verbose_name = "Fecha de edición")
+    created = models.DateTimeField(auto_now = True, verbose_name = "Fecha de creación")
+    updated = models.DateTimeField(auto_now_add = True, verbose_name = "Última vez editado")
 
     class Meta:
         verbose_name = "Obra"
         verbose_name_plural = "Obras"
 
     def __str__(self): return self.titulo
+
+fuentes_de_texto = [
+    ("Base", "base"),
+    ("Oswald", "oswald")
+]
+
+class Publicacion(models.Model):
+    descripcion = models.TextField(null = True, blank = True, verbose_name = "Descripción")
+    fuente_de_texto = models.CharField(max_length=20, choices=fuentes_de_texto, default="base", verbose_name="Fuente de texto")
+    obra = models.ForeignKey(Obra, on_delete=models.CASCADE, verbose_name="Cita de publicación")
+
+    created = models.DateTimeField(auto_now = True, verbose_name = "Fecha de creación")
+    updated = models.DateTimeField(auto_now_add = True, verbose_name = "Última vez editado")
+
+    class Meta:
+        verbose_name = "publicación"
+        verbose_name_plural = "publicaciones"
