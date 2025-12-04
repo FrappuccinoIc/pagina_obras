@@ -12,7 +12,7 @@
 
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="{% static 'core/style/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'catalogo/style/styles.css' %}">
 </head>
 <body class="text-center">
 
@@ -22,7 +22,7 @@
                 <div class="navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-1 mb-md-0 align-items-center">
                     <ul class="navbar-nav me-auto mb-1 mb-md-0 align-items-center">
-                        <li class="nav-item fs-4"><img class="logo me-3 rounded" src="{% static 'core/imagenes/logo.jpg' %}" alt="logo"></li>
+                        <li class="nav-item fs-4"><img class="logo me-3 rounded" src="{% static 'catalogo/imagenes/logo.jpg' %}" alt="logo"></li>
                         <li class="nav-item"><p class="navbar-brand me-5 my-0 fs-3 oswald text-light">{{ nombre_pagina }}</p></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/lienzo">Obras Lienzo</a></li>
@@ -30,14 +30,15 @@
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/impresiones">Obras a Impresión</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/info">Sobre mí</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/pedidos">Pedidos</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/carrito">🛒</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/checkout">🛒</a></li>
+
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="form-signin mt-5 w-100">
+    <main class="form-signin mt-5 w-100 h-67">
         <div class="container mt-4 text-center">
             <div class="row align-items-center mt-4 mb-4">
                 <div class="col ms-auto">
@@ -52,7 +53,7 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="navbar-collapse">
-                        <img class="img-fluid col-1" src="{% static 'core/imagenes/instagram.png' %}" alt="github logo">
+                        <img class="img-fluid col-1" src="{% static 'catalogo/imagenes/instagram.png' %}" alt="github logo">
                         <a class="navbar-brand fs-2 col-4 oswald  text-light" href="{{ LINK_INSTAGRAM }}">Instagram</a>
                     </div>
                 </div>

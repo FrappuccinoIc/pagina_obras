@@ -7,7 +7,7 @@ from core import views as views_core
 urlpatterns = [
     path('', views_core.home, name = 'home'),
     path('catalogo', include("catalogo.urls")),
-    path('checkout', include("checkout.urls")),
+    path('carrito', include("checkout.urls")),
     path('', include("usuarios.urls")),
     path('info/', views_core.info, name = "info"),
     path('pedidos/', views_core.pedidos, name = "pedidos"),
