@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .models import Obra, Publicacion
 from django.core.paginator import Paginator
 
@@ -16,15 +18,6 @@ def catalogo_paginacion(req, medio, url):
     start_index = max(index - 2, 0)
     end_index = min(index + 3, max_index)
     page_range = pag.page_range[start_index:end_index]
-
-    if req.method == 'POST':
-        obra = req.POST.get('obra')
-
-        product_list = req.session.get("carrito", [])
-        if obra not in product_list:
-            product_list.append(obra)
-            req.session["carrito"] = product_list
-        print(req.session["carrito"])
     return [page_obj, page_range]
 
 def catalogo_lienzo(req):
@@ -67,3 +60,14 @@ def detalles(req, obra_id):
     obra = Obra.objects.get(id = obra_id)
     publicacion = Publicacion.objects.get(obra__id = obra_id)
     return render(req, 'catalogo/detalles.html', {"obra": obra, "publicacion": publicacion})
+
+@login_required
+def add_to_carrito(req):
+    if req.method == 'POST':
+        obra = req.POST.get('obra')
+
+        product_list = req.session.get("carrito", [])
+        if obra not in product_list:
+            product_list.append(obra)
+            req.session["carrito"] = product_list
+    return HttpResponse("")

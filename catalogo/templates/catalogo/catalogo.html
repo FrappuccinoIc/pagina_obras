@@ -19,7 +19,11 @@
             <h5 class="card-title text-start text-muted">Estado: {{ o.estado }}</h5>
             <a href="{% url 'obra' o.id %}" class="btn btn-primary mt-2">Ver producto</a>
             {% if user.is_authenticated %}
-            <form method="POST" >
+            <form
+                hx-post="{% url 'add_to_carrito' %}"
+                hx-trigger="submit"
+                hx-swap="none"
+            >
                 {% csrf_token %}
                 <input type="text" name="obra" value="{{ o.id }}" class="d-none">
                 <input type="submit" class="btn btn-primary mt-2" value="Añadir a Carrito" {% if o.estado != "Disponible" %} disabled {% endif %}>
@@ -64,5 +68,6 @@
 
 </section>
 
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
 
 {% endblock %}
