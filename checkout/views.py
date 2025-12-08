@@ -23,6 +23,7 @@ def carrito(req):
         monto_total += obra.precio
     return render(req, "checkout/carrito.html", {"obras": obras, "monto_total": monto_total, "carrito": obras_id_carrito})
 
+@login_required
 def quitar_de_carrito(req):
     if req.method == 'POST':
         obra_id = req.POST.get('obra')
@@ -45,3 +46,7 @@ def quitar_de_carrito(req):
         """
 
         return HttpResponse(html)
+    
+@login_required
+def checkout(req):
+    pass
