@@ -59,7 +59,7 @@ def registrar_usuario(req):
     grupo_perms = {
         "catalogo.view_obra, checkout.add_boletadecompra, catalogo.view_publicacion, catalogo.view_etiqueta"
     }
-    return registrar(req, True, "Usuarios", grupo_perms, 'usuarios/registrar.html')
+    return registrar(req, False, "Usuarios", grupo_perms, 'usuarios/registrar.html')
 
 def registrar_admin(req):
     grupo_perms = {

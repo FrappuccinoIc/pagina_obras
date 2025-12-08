@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'usuarios',
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,7 +52,7 @@ ROOT_URLCONF = 'pagina_obras.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,4 +125,7 @@ MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 CART_SESSION_ID = 'carrito'
 
 
-LOGIN_URL = '/admin/login/' 
+LOGIN_URL = '/login/' 
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

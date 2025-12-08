@@ -28,15 +28,12 @@ def quitar_de_carrito(req):
         obra_id = req.POST.get('obra')
 
         lista_productos = req.session.get("carrito", [])
-        print(lista_productos)
         if obra_id in lista_productos:
             lista_productos.remove(obra_id)
             req.session["carrito"] = lista_productos
-        print(lista_productos)
         
         obras = Obra.objects.filter(id__in=lista_productos).order_by("id")
         total = sum(obra.precio for obra in obras)
-        print(obras, total)
         html = f"""
             <div id="cart-total" hx-swap-oob="true">
                 Total: ${total}
