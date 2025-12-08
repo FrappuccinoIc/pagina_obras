@@ -9,3 +9,6 @@ def info(req):
 
 def pedidos(req):
     return render(req, "core/pedidos.html")
+
+def restringido(req):
+    return render(req, "core/restringido.html")

@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.http import HttpResponse
 from catalogo.models import Obra
+from usuarios.models import Usuario
 
 @login_required
 def carrito(req):
@@ -43,10 +45,15 @@ def quitar_de_carrito(req):
             <div id="empty-message" class="text-muted" hx-swap-oob="true">
                 {"<h4>No hay obras en la lista.</h4>" if not lista_productos else ""}
             </div>
+
+            <input type="submit" id="boton-pago" class="btn btn-success w-100 mt-3" hx-swap-oob="true" {"disabled" if not lista_productos else ""} value="Proceder al Pago">
         """
 
         return HttpResponse(html)
     
 @login_required
 def checkout(req):
-    pass
+    lista_productos = req.session.get("carrito", [])
+    try: usuario = Usuario.objects.get()
+    except: return redirect(reverse("restringido"))
+    return render(req, "checkout/checkout.html")
