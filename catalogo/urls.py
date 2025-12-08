@@ -6,5 +6,5 @@ urlpatterns = [
     path('impresiones/', views.catalogo_impresiones, name = "impresiones"),
     path('murales/', views.catalogo_murales, name = "murales"),
     path('obras/<int:obra_id>', views.detalles, name = "obra"),
-    path('add_to_carrito', views.add_to_carrito, name="add_to_carrito")
+    path('add_to_carrito/', views.add_to_carrito, name="add_to_carrito")
 ]
