@@ -7,7 +7,7 @@
     <h1 class="mb-4 row">Confirmación de pedido</h1>
     <h3 class="row mb-4">A nombre de: {{ usuario.nombre }} {{ usuario.apellidos }}</h3>
     <div class="row mb-4 col-8">
-        <label for="texto-direccion">Dirección: </label>
+        <label for="texto-direccion" class="fw-bold">Dirección: </label>
         <input type="text" name="texto-direccion" id="texto-direccion" required value="{{ usuario.direccion }}" form="form_sig">
     </div>
     <div id="empty-message" class="text-muted mb-3">
@@ -36,7 +36,7 @@
         </div>
     </div>
     {% endfor %}
-    <h2 id="cart-total" class="row text-center border-top mt-2 pt-3">Total: {{ monto_total }}</h2>
+    <h2 id="cart-total" class="row text-center border-top mt-2 pt-3">Total: {{ monto_total }}$</h2>
     <form action="#" id="form_sig">
         {% csrf_token %}
         <input id="boton-pago" type="submit" class="btn btn-primary row" {% if not lista_productos %}disabled{% endif %} value="Ir al siguiente paso >">

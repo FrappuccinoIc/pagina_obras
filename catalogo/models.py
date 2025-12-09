@@ -45,8 +45,8 @@ class Obra(models.Model):
     def __str__(self): return self.titulo
 
 fuentes_de_texto = [
-    ("Base", "base"),
-    ("Oswald", "oswald")
+    ("base", "base"),
+    ("oswald", "oswald")
 ]
 
 class Publicacion(models.Model):

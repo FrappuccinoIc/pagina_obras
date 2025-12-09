@@ -99,7 +99,7 @@ def quitar_en_checkout(req):
         obras = Obra.objects.filter(id__in=lista_productos).order_by("id")
         total = sum(obra.precio for obra in obras)
         html = f"""
-            <h2 id="cart-total" class="row text-center border-top mt-2 pt-3" hx-swap-oob="true">Total: { total }</h2>
+            <h2 id="cart-total" class="row text-center border-top mt-2 pt-3" hx-swap-oob="true">Total: { total }$</h2>
 
             <div id="empty-message" class="text-muted mb-3" hx-swap-oob="true">
                 {"<h4>No hay productos en la lista.</h4>" if not lista_productos else ""}
