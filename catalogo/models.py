@@ -29,7 +29,7 @@ obras_estados = [
 ]
 class Obra(models.Model):
     titulo = models.CharField(max_length = 50, verbose_name = "Titulo")
-    imagen = models.ImageField(upload_to = "obras", null = True, blank = True, verbose_name = "Imagen")
+    imagen = models.ImageField(upload_to = "obras/", null = True, blank = True, verbose_name = "Imagen")
     medio = models.CharField(max_length = 50, default = "Lienzo", choices = obras_medios, verbose_name = "Medio de Obra")
     etiquetas = models.ManyToManyField(Etiqueta, verbose_name = "etiquetas")
     precio = models.IntegerField(validators=[MinValueValidator(0)], verbose_name = "Precio")
