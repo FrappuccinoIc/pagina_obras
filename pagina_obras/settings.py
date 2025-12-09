@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'checkout',
     'usuarios',
     'cloudinary',
-    'cloudinary-storage'
+    'cloudinary_storage'
 ]
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
