@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'pagina_obras.wsgi.application'
 
 # DATABASES = {
 #     'default': dj_database_url.config(
-#         default='postgresql://postgresql_obras_user:I3vM49JF5GpXGTKBL1mO9nO8mlfSbgRP@dpg-d4rr4sn5r7bs73f0e1v0-a.virginia-postgres.render.com/postgresql_obras',
+#         default='postgresql://postgresql_obras_user:I3vM49JF5GpXGTKBL1mO9nO8mlfSbgRP@dpg-d4rr4sn5r7bs73f0e1v0-a/postgresql_obras',
 #         conn_max_age=600
 #     )
 # }
