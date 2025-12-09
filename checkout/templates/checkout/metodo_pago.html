@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block contenido %}
+{% load crispy_forms_tags %}
+
+<div class="container border border-2 p-3 px-5 rounded">
+    <h1 class="mb-4 row">Seleccionar método de pago:</h1>
+
+    <h3>A nombre de: {{ usuario.nombre }}</h3>
+    <h3>Direccion: {{ direccion }}</h3>
+    
+    <form action="{% url 'finalizar' %}" method="POST">
+        {{ metodo_pago_form|crispy }}
+        {% csrf_token %}
+        <input type="hidden" name="direccion" value="{{ direccion }}">
+        <button class="btn btn-primary" type="submit">Comprar</button>
+    </form>
+
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</div>
+
+{% endblock %}

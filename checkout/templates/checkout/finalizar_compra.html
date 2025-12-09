@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block contenido %}
+
+<div class="container border border-2 p-3 px-5 rounded">
+    <h1 class="mb-4 row">Pedido realizado con exito</h1>
+    <h3 class="row mb-4">A nombre de: {{ boleta.cliente.nombre }} {{ boleta.cliente.apellidos }}</h3>
+    <h3 class="row mb-4">Dirección: {{ boleta.direccion }}</h3>
+    {% for producto in boleta.lista_productos.all %}
+    <div id="producto-{{ producto.id }}" class="row col-12 d-sm-inline-flex flex-row border-top py-3">
+        <div class="container col-3">   
+            <img class="img-fluid object-fit-cover ratio-1x1" src="{{ producto.imagen_url }}" alt="{{ producto.titulo }}">
+        </div>
+        <div class="row col-9">
+            <h3 class="col-2">{{ producto.precio }}$</h3>
+            <a href="{% url 'obra' producto.id %}" class="col-8"><h3>{{ producto.titulo }}</h3></a>
+    </div>
+    {% endfor %}
+    <h2 id="cart-total" class="row text-center border-top mt-2 pt-3">Total: {{ boleta.monto }}$</h2>
+    <a href="/" class="btn btn-primary row">Volver al inicio</a>
+
+</div>
+
+{% endblock %}

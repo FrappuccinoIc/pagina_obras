@@ -2,8 +2,8 @@ from django.contrib import admin
 from .models import BoletaDeCompra
 
 class BoletaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'get_cliente_nombre', 'get_cliente_apellidos', 'fecha_creacion', 'ult_actualizado')
-    readonly_fields = ('fecha_creacion', 'ult_actualizado')
+    list_display = ('id', 'get_cliente_nombre', 'get_cliente_apellidos', 'fecha_creacion', 'metodo_pago', 'proveedor_pago')
+    readonly_fields = ('fecha_creacion', 'ult_actualizado', 'lista_productos')
 
     def get_cliente_nombre(self, obj): return obj.cliente.nombre
 

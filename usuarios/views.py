@@ -61,6 +61,7 @@ def registrar_usuario(req):
     }
     return registrar(req, False, "Usuarios", grupo_perms, 'usuarios/registrar.html')
 
+@permission_required('auth.add_user')
 def registrar_admin(req):
     grupo_perms = {
         "catalogo.view_publicacion, catalogo.delete_obra, catalogo.view_etiqueta, usuarios.view_usuario, contenttypes.view_contenttype, usuarios.add_usuario, catalogo.add_publicacion, contenttypes.delete_contenttype, checkout.delete_boletadecompra, usuarios.delete_usuario, catalogo.delete_etiqueta, auth.view_user, catalogo.change_publicacion, checkout.change_boletadecompra, auth.delete_user, catalogo.change_etiqueta, auth.view_permission, catalogo.delete_publicacion, catalogo.change_obra, contenttypes.change_contenttype, catalogo.add_etiqueta, auth.view_group, auth.add_user, usuarios.change_usuario, checkout.view_boletadecompra, auth.change_user, sessions.view_session, catalogo.view_obra, admin.view_logentry, contenttypes.add_contenttype, catalogo.add_obra"

@@ -4,21 +4,32 @@ from django.urls import reverse
 from django.http import HttpResponse
 from catalogo.models import Obra
 from usuarios.models import Usuario
+from django.contrib.auth.models import User
+from .forms import MetodoPagoForm
+from .models import BoletaDeCompra
+
+def verificar_disponibilidad_obras(req, obras, carrito):
+    modificado = False
+    for obra in obras:
+        if obra.estado != "Disponible":
+            try:
+                carrito.remove(f"{obra.id}")
+                modificado = True
+                obras = obras.exclude(id = obra.id)
+            except: pass
+    if modificado:
+        req.session["carrito"] = carrito
+
+    return {"obras": obras, "carrito": carrito}
 
 @login_required
 def carrito(req):
     obras_id_carrito = req.session.get("carrito", [])
     obras = Obra.objects.filter(id__in = obras_id_carrito).order_by("id")
-    modificado = False
-    for obra in obras:
-        if obra.estado != "Disponible":
-            try:
-                obras_id_carrito.remove(f"{obra.id}")
-                modificado = True
-                obras = obras.exclude(id = obra.id)
-            except: pass
-    if modificado:
-        req.session["carrito"] = obras_id_carrito
+    obj = verificar_disponibilidad_obras(req, obras, obras_id_carrito)
+    obras = obj["obras"]
+    obras_id_carrito = obj["carrito"]
+
     monto_total = 0
     for obra in obras:
         monto_total += obra.precio
@@ -52,37 +63,32 @@ def quitar_de_carrito(req):
     
 @login_required
 def checkout(req):
+    if req.method != "POST": return redirect(reverse("ver_carrito"))
+
     try: usuario = Usuario.objects.get(cuenta__id = req.user.id)
     except: return redirect(reverse("restringido"))
 
     obras_id_carrito = req.session.get("carrito", [])
-    lista_productos = Obra.objects.filter(id__in = obras_id_carrito).order_by("id")
+    obras = Obra.objects.filter(id__in = obras_id_carrito).order_by("id")
 
     if(len(obras_id_carrito) == 0):
         return render(req, "checkout/checkout.html", {
             "usuario": usuario,
-            "lista_productos": lista_productos,
+            "obras": obras,
             "monto_total": 0
         })
 
-    modificado = False
-    for obra in lista_productos:
-        if obra.estado != "Disponible":
-            try:
-                obras_id_carrito.remove(f"{obra.id}")
-                modificado = True
-                lista_productos = lista_productos.exclude(id = obra.id)
-            except: pass
-    if modificado:
-        req.session["carrito"] = obras_id_carrito
+    obj = verificar_disponibilidad_obras(req, obras, obras_id_carrito)
+    obras = obj["obras"]
+    obras_id_carrito = obj["carrito"]
 
-    monto_total = sum(obra.precio for obra in lista_productos)
+    monto_total = sum(obra.precio for obra in obras)
 
     if(len(obras_id_carrito) == 0): return redirect(reverse("ver_carrito"))
     
     return render(req, "checkout/checkout.html", {
         "usuario": usuario,
-        "lista_productos": lista_productos,
+        "lista_productos": obras,
         "monto_total": monto_total
     })
 
@@ -109,3 +115,56 @@ def quitar_en_checkout(req):
         """
 
         return HttpResponse(html)
+
+@login_required
+def metodo_pago(req):
+    if req.method != "POST": return redirect(reverse("ver_carrito"))
+
+    usuario = Usuario.objects.get(cuenta__id = req.user.id)
+    direccion = req.POST.get('texto-direccion')
+    if not direccion: return redirect(reverse("ver_carrito"))
+    obras_id_carrito = req.session.get("carrito", [])
+    obras = Obra.objects.filter(id__in = obras_id_carrito).order_by("id")
+
+    obj = verificar_disponibilidad_obras(req, obras, obras_id_carrito)
+    obras = obj["obras"]
+    obras_id_carrito = obj["carrito"]
+
+    if(len(obras_id_carrito) == 0): return redirect(reverse("ver_carrito"))
+
+    metodo_pago_form = MetodoPagoForm()
+        
+    return render(req, "checkout/metodo_pago.html", {"usuario": usuario, "direccion": direccion, "metodo_pago_form": metodo_pago_form})
+
+@login_required
+def finalizar(req):
+    if req.method != "POST": return redirect(reverse("restringido"))
+    usuario = Usuario.objects.get(cuenta__id = req.user.id)
+    direccion = req.POST.get('direccion')
+    if not direccion: 
+        print(direccion)
+        return redirect(reverse("ver_carrito"))
+
+    obras_id_carrito = req.session.get("carrito", [])
+    obras = Obra.objects.filter(id__in = obras_id_carrito).order_by("id")
+    print(obras_id_carrito, obras)
+    for obra in obras:
+        print(obra, obra.id, type(obra.id), f"{obra.id}" in obras_id_carrito)
+        if obra.estado != "Disponible": return redirect(reverse("restringido"))
+        obras_id_carrito.remove(f"{obra.id}")
+        if obra.medio != "Impresiones": 
+            obra.estado = "Agotado"
+        obra.save()
+    req.session["carrito"] = obras_id_carrito
+    metodo_pago = req.POST.get('metodo_pago')
+    boleta = BoletaDeCompra.objects.create(
+        cliente = usuario,
+        direccion = direccion,
+        monto = sum(obra.precio for obra in obras),
+        estado = "Pagado",
+        metodo_pago = metodo_pago
+    )
+    boleta.lista_productos.set(obras)
+    boleta.save()
+
+    return render(req, 'checkout/finalizar_compra.html', {"boleta": boleta})

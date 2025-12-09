@@ -4,9 +4,11 @@
 {% load crispy_forms_tags %}
 
 <div class="container col-6">
+    {% if perms.auth.add_user %}
     <div class="container row text-start mb-4">
         <h4><a href="/usuarios/registrar/admin">Registrar administrador</a></h4>
     </div>
+    {% endif %}
 
     {% if form.errors %}
         {{ form.errors }}

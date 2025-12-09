@@ -16,7 +16,7 @@
                 {% for obra in obras %}
                 <div class="col-md-6" id="obra-{{ obra.id }}">
                     <div class="card obra-card">
-                        <img src="{{ obra.imagen.url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <img src="{{ obra.imagen_url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">{{ obra.titulo }}</h5>
                             <p class="text-muted mb-1">Precio: ${{ obra.precio }}</p>
