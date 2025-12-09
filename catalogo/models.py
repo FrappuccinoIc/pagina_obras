@@ -30,7 +30,10 @@ obras_estados = [
 ]
 class Obra(models.Model):
     titulo = models.CharField(max_length = 50, verbose_name = "Titulo")
+
     imagen = models.ImageField(upload_to = "obras/", null = True, blank = True, verbose_name = "Imagen")
+    imagen_url = models.URLField(blank=True, null=True)
+
     medio = models.CharField(max_length = 50, default = "Lienzo", choices = obras_medios, verbose_name = "Medio de Obra")
     etiquetas = models.ManyToManyField(Etiqueta, verbose_name = "etiquetas")
     precio = models.IntegerField(validators=[MinValueValidator(0)], verbose_name = "Precio")
@@ -45,9 +48,10 @@ class Obra(models.Model):
 
     def save(self, *args, **kwargs):
         # Si se cargó una imagen local nueva:
-        upload = cloudinary.uploader.upload(self.imagen)
-        self.imagen = upload.get("secure_url")   # ← Guardamos solo la URL
-        # self.imagen_archivo = None                   # opcional: ya no la guardas local
+        if self.imagen:
+            upload = cloudinary.uploader.upload(self.imagen)
+            self.imagen_url = upload.get("secure_url")   # ← Guardamos solo la URL
+            self.imagen = None                   # opcional: ya no la guardas local
 
         super().save(*args, **kwargs)
 
