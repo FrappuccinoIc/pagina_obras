@@ -19,8 +19,19 @@
 
             <hr>
 
-            <h4 class="fs-5 mb-4">{{ publicacion.descripcion }}</h4>
+            <h4 class="fs-5 mb-4 {% if publicacion.fuente_de_texto == 'oswald' %}oswald{% endif %}">{{ publicacion.descripcion }}</h4>
             <h3 class="text-success">{{ obra.estado }} | Precio: ${{ obra.precio }}</h3>
+            {% if user.is_authenticated %}
+            <form
+                hx-post="{% url 'add_to_carrito' %}"
+                hx-trigger="submit"
+                hx-swap="none"
+            >
+                {% csrf_token %}
+                <input type="text" name="obra" value="{{ o.id }}" class="d-none">
+                <input type="submit" class="btn btn-primary mt-2" value="Añadir a Carrito" {% if o.estado != "Disponible" %} disabled {% endif %}>
+            </form>
+            {% endif %}
         </div>
     </div>
     

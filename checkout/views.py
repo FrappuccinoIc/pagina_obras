@@ -19,7 +19,6 @@ def carrito(req):
             except: pass
     if modificado:
         req.session["carrito"] = obras_id_carrito
-        print(req.session.get("carrito", []))
     monto_total = 0
     for obra in obras:
         monto_total += obra.precio
@@ -53,7 +52,60 @@ def quitar_de_carrito(req):
     
 @login_required
 def checkout(req):
-    lista_productos = req.session.get("carrito", [])
-    try: usuario = Usuario.objects.get()
+    try: usuario = Usuario.objects.get(cuenta__id = req.user.id)
     except: return redirect(reverse("restringido"))
-    return render(req, "checkout/checkout.html")
+
+    obras_id_carrito = req.session.get("carrito", [])
+    lista_productos = Obra.objects.filter(id__in = obras_id_carrito).order_by("id")
+
+    if(len(obras_id_carrito) == 0):
+        return render(req, "checkout/checkout.html", {
+            "usuario": usuario,
+            "lista_productos": lista_productos,
+            "monto_total": 0
+        })
+
+    modificado = False
+    for obra in lista_productos:
+        if obra.estado != "Disponible":
+            try:
+                obras_id_carrito.remove(f"{obra.id}")
+                modificado = True
+                lista_productos = lista_productos.exclude(id = obra.id)
+            except: pass
+    if modificado:
+        req.session["carrito"] = obras_id_carrito
+
+    monto_total = sum(obra.precio for obra in lista_productos)
+
+    if(len(obras_id_carrito) == 0): return redirect(reverse("ver_carrito"))
+    
+    return render(req, "checkout/checkout.html", {
+        "usuario": usuario,
+        "lista_productos": lista_productos,
+        "monto_total": monto_total
+    })
+
+@login_required
+def quitar_en_checkout(req):
+    if req.method == 'POST':
+        producto_id = req.POST.get('producto')
+
+        lista_productos = req.session.get("carrito", [])
+        if producto_id in lista_productos:
+            lista_productos.remove(producto_id)
+            req.session["carrito"] = lista_productos
+        
+        obras = Obra.objects.filter(id__in=lista_productos).order_by("id")
+        total = sum(obra.precio for obra in obras)
+        html = f"""
+            <h2 id="cart-total" class="row text-center border-top mt-2 pt-3" hx-swap-oob="true">Total: { total }</h2>
+
+            <div id="empty-message" class="text-muted mb-3" hx-swap-oob="true">
+                {"<h4>No hay productos en la lista.</h4>" if not lista_productos else ""}
+            </div>
+
+            <input id="boton-pago" type="submit" class="btn btn-primary row" hx-swap-oob="true" {"disabled" if not lista_productos else ""} value="Ir al siguiente paso >">
+        """
+
+        return HttpResponse(html)
