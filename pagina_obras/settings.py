@@ -142,7 +142,6 @@ if DEBUG:
     MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 else:
     MEDIA_URL='https://res.cloudinary.com/dwk9xy3hs/image/upload/'
-    MEDIA_ROOT=os.path.join(BASE_DIR,"media")
     
 CART_SESSION_ID = 'carrito'
 
