@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+import cloudinary.uploader
 
 class Etiqueta(models.Model):
     nombre = models.CharField(max_length = 15, verbose_name = "Nombre")
@@ -41,6 +42,14 @@ class Obra(models.Model):
     class Meta:
         verbose_name = "Obra"
         verbose_name_plural = "Obras"
+
+    def save(self, *args, **kwargs):
+        # Si se cargó una imagen local nueva:
+        upload = cloudinary.uploader.upload(self.imagen)
+        self.imagen = upload.get("secure_url")   # ← Guardamos solo la URL
+        # self.imagen_archivo = None                   # opcional: ya no la guardas local
+
+        super().save(*args, **kwargs)
 
     def __str__(self): return self.titulo
 
