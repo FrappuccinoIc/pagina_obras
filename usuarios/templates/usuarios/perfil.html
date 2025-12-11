@@ -1,21 +1,18 @@
 {% extends 'core/base.html' %}
 {% block contenido %}
 
-<div class="container">
+<div class="container border border-2 p-3 px-5 rounded">
     <div class="container row text-start mb-4">
-        <h2><a href="/">← Volver atrás</a></h2>
+        <h2><a href="{% url 'home' %}" class="btn btn-secondary col-2">Volver atrás</a></h2>
     </div>
 
     <div class="container row">
-        {% if usuario.imagen %}
-        <img class="img-responsive col-3" src="{{ usuario.imagen.url }}" alt="perfil_usuario"> - 
-        {% endif %}
-        <h3 class="col-6">Sobrenombre usuario: {{ usuario.username }}</h3>
-        <h3 class="col-6">Nombre: {{ usuario.nombre }} {{ usuario.apellidos }}</h3>
+        <h1 class="mb-4 row">Pérfil de Usuario</h1>
+        <h3 class="row mb-4 fw-bold">Nombre: {{ usuario.nombre }} {{ usuario.apellidos }}</h3>
+        <h3 class="row mb-4">Dirección: {{ usuario.direccion }}</h3>
     </div>
-    <h4 class="ps-4 p-3" >direccion: {{ usuario.direccion }}</h4>
 
-    <h2><a href="./eliminar/" class="text-danger">Eliminar usuario</a></h2>
+    <h2><a href="./eliminar/" class="btn btn-danger btn-lg">Eliminar usuario</a></h2>
 </div>
 
 
