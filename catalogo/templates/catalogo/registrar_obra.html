@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block contenido %}
+
+{% load crispy_forms_tags %}
+
+<div class="container">
+    {% if form.errors %}
+        <div class="fs-4 p-3 mb-4 bg-danger rounded-3 shadow-sm text-light">
+            {{ form.errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">{{ form.titulo|as_crispy_field }}</div>
+        <div class="row">
+            <div class="col-8">{{ form.imagen|as_crispy_field }}</div>
+            <div class="col-4">
+                {{ form.medio|as_crispy_field }}
+                {{ form.estado|as_crispy_field }}
+                {{ form.precio|as_crispy_field }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">{{ form.descripcion|as_crispy_field }}</div>
+            <div class="col-4">{{ form.etiquetas|as_crispy_field }}</div>
+        </div>
+        <button class="btn btn-primary" type="submit">Añadir obra</button>
+        <a href="{% url 'catalogo' %}" class="btn btn-secondary">Volver al catálogo</a>
+    </form>
+</div>
+
+{% endblock %}

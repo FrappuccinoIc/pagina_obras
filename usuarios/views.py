@@ -70,7 +70,8 @@ def registrar_admin(req):
 
 @login_required
 def perfil(req):
-    usuario = Usuario.objects.get(cuenta__id = req.user.id)
+    try: usuario = Usuario.objects.get(cuenta__id = req.user.id)
+    except: redirect(reverse("restringido"))
     return render(req, "usuarios/perfil.html", {"usuario": usuario})
 
 @login_required

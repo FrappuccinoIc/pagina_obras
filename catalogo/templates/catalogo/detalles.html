@@ -4,7 +4,10 @@
 {% block contenido %}
 
 <section class="contenido container">
-    
+    <div class="row mb-3 justify-content-around">
+        <a href="{% url 'catalogo' %}" class="btn btn-secondary col-2">Volver al catálogo</a>
+        <div class="col-10"></div>
+    </div>
     <div class="row mb-3 justify-content-around">
         <img class="img-fluid col-4" src="{{ obra.imagen_url }}" alt="obra">
         <div class="col-7">
@@ -32,6 +35,15 @@
                 <input type="submit" class="btn btn-primary mt-2" value="Añadir a Carrito" {% if obra.estado != "Disponible" %} disabled {% endif %}>
             </form>
             {% endif %}
+
+            <div class="row justify-content-center mt-2">
+                {% if perms.catalogo.change_obra %}
+                <a class="btn btn-warning mx-2 col-2" href="{% url 'editar_obra' obra.id %}">Editar Obra</a>
+                {% endif %}
+                {% if perms.catalogo.delete_obra %}
+                <a class="btn btn-danger mx-2 col-2" href="{% url 'eliminar_obra' obra.id %}">Eliminar Obra</a>
+                {% endif %}
+            </div>
         </div>
     </div>
     

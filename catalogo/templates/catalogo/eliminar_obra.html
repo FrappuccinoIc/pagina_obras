@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% block contenido %}
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h4 class="mb-3">Confirmación eliminar obra</h4>
+        <p>¿Está seguro/a que desea eliminar esta obra?</p>
+
+        <div class="row mb-3 justify-content-around">
+            <img class="img-fluid col-4" src="{{ obra.imagen_url }}" alt="obra">
+            <div class="col-7">
+                <h2>{{ obra.titulo }} <span class="text-muted fs-4">ID: {{ obra.id }}</span></h2>
+                <h3 class="text-primary">Medio: {{ obra.medio }}</h3>
+                <h5 class="text-muted">
+                    Etiquetas: 
+                        {% for e in obra.etiquetas.all %}
+                            {{ e.nombre }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                </h5>
+                <h4 class="fs-5 mb-4 {% if publicacion.fuente_de_texto == 'oswald' %}oswald{% endif %}">{{ publicacion.descripcion }}</h4>
+                <h3 class="text-success">{{ obra.estado }} | Precio: ${{ obra.precio }}</h3>
+            </div>
+        </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="obra" value="{{ obra.id }}" class="d-none">
+            <button class="btn btn-danger">Eliminar</button>
+            <a href="{% url 'obra' obra.id %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

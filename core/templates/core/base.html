@@ -25,15 +25,19 @@
                         <li class="nav-item fs-4"><img class="logo me-3 rounded" src="{% static 'catalogo/imagenes/logo.jpg' %}" alt="logo"></li>
                         <li class="nav-item"><p class="navbar-brand me-5 my-0 fs-3 oswald text-light">{{ nombre_pagina }}</p></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/catalogo/lienzo">Obras Lienzo</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/catalogo/murales">Murales</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/catalogo/impresiones">Obras a Impresión</a></li>
+                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/catalogo">Catálogo</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/info">Sobre mí</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/pedidos">Precio Pedidos</a></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/usuarios/registrar">Registrar</a></li>
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/usuarios/perfil">Perfil</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="{% url 'logout' %}">Cerrar sesión</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link oswald fs-4 text-light" href="{% url 'logout' %}"></a>
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button class="nav-link oswald fs-4 text-light" type="submit">Cerrar Sesión</button>
+                            </form>
+                        </li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="{% url 'ver_carrito' %}">🛒</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="{% url 'login' %}">Login</a></li>
@@ -54,22 +58,31 @@
         </div>
     </main>
     
-    <footer class="mt-4">
-        <nav class="navbar navbar-expand-md banner footer bg-black">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="navbar-collapse">
-                        <img class="img-fluid col-1" src="{% static 'catalogo/imagenes/instagram.png' %}" alt="github logo">
-                        <a class="navbar-brand fs-2 col-4 oswald  text-light" href="{{ LINK_INSTAGRAM }}">Instagram</a>
-                        <ul class="list-unstyled mb-0">
-                        <li><h4 class="fs-5 col-7 oswald text-light" >Teléfono: +56 9 8278 8848</h4></li>
-                        <li><h4 class="fs-5 col-7 oswald text-light"> Email: holacristianerre@gmail.com</h4></li>
-                        </ul>
-                    </div>
+    <footer class="footer bg-black text-light py-4 mt-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+
+                <div class="col-12 col-md-4 d-flex align-items-center mb-3 mb-md-0">
+                    <img src="{% static 'catalogo/imagenes/instagram.png' %}" 
+                        alt="instagram logo" 
+                        class="img-fluid me-3" style="width: 40px; height: 40px;">
+
+                    <a class="navbar-brand fs-3 oswald text-light" href="{{ LINK_INSTAGRAM }}">
+                        Instagram
+                    </a>
                 </div>
+
+                <div class="col-12 col-md-7">
+                    <ul class="list-unstyled mb-0">
+                        <li><h4 class="fs-6 oswald mb-1">Teléfono: +56 9 8278 8848</h4></li>
+                        <li><h4 class="fs-6 oswald mb-0">Email: holacristianerre@gmail.com</h4></li>
+                    </ul>
+                </div>
+
             </div>
-        </nav>
+        </div>
     </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
   </body>

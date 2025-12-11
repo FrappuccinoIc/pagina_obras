@@ -3,39 +3,87 @@
 {% load static %}
 {% block contenido %}
 
-<section class="contenido container">
-    <h2>Catálogo {{ medio }}</h2>
+<section class="contenido container mb-3 justify-content-center">
+    <h2>Catálogo
+        {% if perms.catalogo.add_publicacion %}
+        <a class="btn btn-primary mb-3" href="{% url 'registrar_obra' %}">Añadir obra</a>
+        {% endif %}
+    </h2>
 
-    {% for o in page_obj.object_list %}
-    {% if forloop.counter0|divisibleby:4 %}
-        <div class="row mb-3 justify-content-center">
-    {% endif %}
+    <form method="get" class="mb-4 col-8">
+        <div class="row justify-content-center">
 
-    <div class="card mx-1" style="width: 18rem;">
-        <a href="{% url 'obra' o.id %}"><img class="card-img-top" src="{{ o.imagen_url }}" alt="obra"></a>
-        <div class="card-body">
-            <h4 class="card-title text-start">{{ o.titulo }}</h4>
-            <h5 class="card-title text-start">{{ o.precio }}$</h5>
-            <h5 class="card-title text-start text-muted">Estado: {{ o.estado }}</h5>
-            <a href="{% url 'obra' o.id %}" class="btn btn-primary mt-2">Ver producto</a>
-            {% if user.is_authenticated %}
-            <form
-                hx-post="{% url 'add_to_carrito' %}"
-                hx-trigger="submit"
-                hx-swap="none"
-            >
-                {% csrf_token %}
-                <input type="text" name="obra" value="{{ o.id }}" class="d-none">
-                <input type="submit" class="btn btn-primary mt-2" value="Añadir a Carrito" {% if o.estado != "Disponible" %} disabled {% endif %}>
-            </form>
-            {% endif %}
+            <div class="col-4">
+                <select name="medio" class="form-select">
+                    <option value="">Buscar por medio</option>
+                    {% for medio in lista_medios %}
+                        <option value="{{ medio }}" {% if medio_seleccionado == medio %}selected{% endif %}>
+                            {{ medio }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-4">
+                <select name="estado" class="form-select">
+                    <option value="">Buscar por estado</option>
+                    {% for estado in lista_estados %}
+                        <option value="{{ estado }}" {% if estado_seleccionado == estado %}selected{% endif %}>
+                            {{ estado }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-2">
+                <button class="btn btn-primary" type="submit">Filtrar</button>
+            </div>
         </div>
-    </div>
-    {% if forloop.counter|divisibleby:4 or forloop.last %}
-        </div> 
-    {% endif %}
-    
-    {% endfor %}
+    </form>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3 justify-content-center">
+
+        {% for o in page_obj.object_list %}
+        <div class="card mx-1" style="width: 18rem;">
+            <a href="{% url 'obra' o.id %}">
+                <div class="ratio ratio-1x1">
+                    <img class="img-fluid object-fit-cover" src="{{ o.imagen_url }}" alt="obra">
+                </div>
+            </a>
+            <div class="card-body d-flex flex-column justify-content-between">
+                <h4 class="card-title text-start">{{ o.titulo }}</h4>
+                    <div>
+                        <h5 class="card-title text-start">{{ o.precio }}$</h5>
+                        <h5 class="card-title text-start text-muted">Estado: {{ o.estado }}</h5>
+                        <a href="{% url 'obra' o.id %}" class="btn btn-primary mt-2">Ver producto</a>
+                        {% if user.is_authenticated %}
+                        <form
+                            hx-post="{% url 'add_to_carrito' %}"
+                            hx-trigger="submit"
+                            hx-swap="none"
+                        >
+                            {% csrf_token %}
+                            <input type="text" name="obra" value="{{ o.id }}" class="d-none">
+                            <input
+                            {% if user.is_authenticated %}
+                            type="submit"
+                            {% else %}
+                            type="button"
+                            {% endif %}
+                            value = "Añadir a Carrito"
+                            {% if o.estado == 'Disponible' %}
+                                class="btn btn-primary mt-2"
+                            {% else %}
+                                class="btn btn-secondary mt-2"
+                                disabled
+                            {% endif %}>
+                        </form>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div> 
 
     <nav aria-label="Paginación" class="row mt-5">
             <ul class="pagination justify-content-center">

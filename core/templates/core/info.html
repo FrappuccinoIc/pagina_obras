@@ -1,24 +1,63 @@
 {% extends 'core/base.html' %}
-
 {% load static %}
-{% block contenido %}
-<section class="container contenido">
-   <article class="mb-5"> 
-    <h2>Sobre mí – Cristián Erré</h2> 
-   </article>
 
-   <article class="mb-5 d-flex-column row justify-content-start text-start">
-    <p class="fs-4 border border-dark border-3">Soy Cristián Erré, pintor muralista y diseñador con enfoque en proyectos de interiorismo y arte aplicado a espacios habitables y comerciales.
-    Cuento con experiencia en creación de murales, diseño visual y desarrollo artístico para interiores, 
-    aportando identidad, carácter y una narrativa visual única a cada proyecto.
-    </p>
-    </article>
-    <ul class="mb-5 d-flex-column row justify-content-start text-start  ">
-      <li><h4 class="fs-5 fw-bold">Teléfono: +56 9 8278 8848</h4></li>
-      <li><h4 class="fs-5 fw-bold">Email: holacristianerre@gmail.com</h4></li>
-      <li><h4 class="fs-5 fw-bold">Facebook: <a href="https://www.facebook.com/errecristian" target="_blank">facebook.com/errecristian</a></h4></li>
-      <li><h4 class="fs-5 fw-bold">Instagram: <a href="https://www.instagram.com/cristian_erre" target="_blank">@cristian_erre</a></h4></li>
-   </ul>
+{% block contenido %}
+
+<section>
+
+    <!-- Título -->
+    <div class="text-center mb-5">
+        <h2 class="display-5 fw-bold oswald">Sobre mí</h2>
+        <h4 class="text-muted">Cristián Erré</h4>
+    </div>
+
+    <!-- Foto + Descripción -->
+    <div class="row align-items-center justify-content-center mb-5">
+
+        <!-- FOTO DEL CLIENTE -->
+        <div class="col-12 col-md-4 text-center mb-4 mb-md-0">
+            <img 
+                src="{% static 'core/imagenes/cliente.png' %}" 
+                alt="Foto de Cristián Erré" 
+                class="img-fluid rounded shadow" 
+                style="max-height: 320px; object-fit: cover;"
+            >
+        </div>
+
+        <!-- TEXTO DESCRIPTIVO -->
+        <div class="col-12 col-md-7">
+            <p class="fs-5 p-4 border border-dark border-3 rounded bg-light">
+                Soy Cristián Erré, pintor muralista y diseñador enfocado en proyectos de interiorismo 
+                y arte aplicado a espacios habitables y comerciales. 
+                Cuento con experiencia en creación de murales, diseño visual y desarrollo artístico para interiores,
+                aportando identidad, carácter y una narrativa visual única a cada proyecto.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Datos de contacto -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            <ul class="list-unstyled fs-5">
+                <li class="mb-2 fw-bold">Teléfono: +56 9 8278 8848</li>
+                <li class="mb-2 fw-bold">Email: <span class="text-primary">holacristianerre@gmail.com</span></li>
+                <li class="mb-2 fw-bold">
+                    Facebook: 
+                    <a href="https://www.facebook.com/errecristian" target="_blank" class="text-decoration-underline">
+                        facebook.com/errecristian
+                    </a>
+                </li>
+                <li class="fw-bold">
+                    Instagram: 
+                    <a href="https://www.instagram.com/cristian_erre" target="_blank" class="text-decoration-underline">
+                        @cristian_erre
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 </section>
+
 {% endblock %}

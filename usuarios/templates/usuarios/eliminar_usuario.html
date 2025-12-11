@@ -9,7 +9,7 @@
     
     <form action="{% url 'eliminar_usuario'%}" method="POST">
         {% csrf_token %}
-        <button class="btn btn-primary"><a class="fs-4 text-light" href="/perfil/{{ usuario.id }}">Volver atrás</a></button>
+        <button class="btn btn-primary"><a class="fs-4 text-light" href="/usuarios/perfil">Volver atrás</a></button>
         <button class="btn btn-danger fs-4" type="submit">Eliminar usuario</button>
     </form>
     {% endif %}
