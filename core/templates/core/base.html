@@ -31,7 +31,10 @@
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/usuarios/registrar">Registrar</a></li>
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="/usuarios/perfil">Perfil</a></li>
-                        <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                        <li class="nav-item"><form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button class="nav-link oswald fs-4 text-light" type="submit">Cerrar Sesión</button>
+                            </form></li>
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="{% url 'ver_carrito' %}">🛒</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link oswald fs-4 text-light" href="{% url 'login' %}">Login</a></li>
