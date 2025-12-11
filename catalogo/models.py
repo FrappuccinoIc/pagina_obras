@@ -47,11 +47,11 @@ class Obra(models.Model):
         verbose_name_plural = "Obras"
 
     def save(self, *args, **kwargs):
-        # sólo si se cargó una imagen local nueva:
+        # Si se cargó una imagen local nueva:
         if self.imagen:
-            upload = cloudinary.uploader.upload(self.imagen)    # se sube a la nube
-            self.imagen_url = upload.get("secure_url")   # guarda solo la URL
-            self.imagen = None                   # resetea el campo imagen
+            upload = cloudinary.uploader.upload(self.imagen)
+            self.imagen_url = upload.get("secure_url")   # ← Guardamos solo la URL
+            self.imagen = None                   # opcional: ya no la guardas local
 
         super().save(*args, **kwargs)
 

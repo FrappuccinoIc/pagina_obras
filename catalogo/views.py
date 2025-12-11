@@ -101,7 +101,7 @@ def editar_obra(req, obra_id):
             obra.precio = form.cleaned_data['precio']
             if form.cleaned_data['imagen']: 
                 obra.imagen = form.cleaned_data['imagen']
-            else: pass
+            else: obra.imagen = None
             obra.etiquetas.set(etiquetas)
 
             obra.save()
